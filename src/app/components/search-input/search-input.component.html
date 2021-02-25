@@ -1,1 +1,17 @@
-<p>search-input works!</p>
+<form (ngSubmit)="submit()" #form="ngForm">
+  <p-autoComplete
+    #autoComplete
+    name="search-input"
+    [required]="true"
+    [(ngModel)]="searchTerm"
+    [suggestions]="results"
+    [delay]="500"
+    field="title"
+    (completeMethod)="search($event)"
+    (onSelect)="select($event)"
+    (onKeyUp)="onKeyUp($event)"
+    (onShow)="onShow()"
+    (onHide)="onHide()"
+  ></p-autoComplete>
+  <p-button type="submit" [disabled]="!!form.invalid">Search</p-button>
+</form>

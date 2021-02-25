@@ -1,1 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
+p-autocomplete.ng-dirty.ng-invalid > .p-autocomplete > .p-inputtext {
+  box-shadow: 0 0 0 1px #f44336;
+}
