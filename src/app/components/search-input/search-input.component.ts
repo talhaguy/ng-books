@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  Inject,
   OnInit,
   Output,
   ViewChild,
@@ -8,6 +9,8 @@ import {
 import { BooksApiService } from 'src/app/services/books-api.service';
 import { map } from 'rxjs/operators';
 import { AutoComplete } from 'primeng/autocomplete';
+import { Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-search-input',
@@ -23,7 +26,10 @@ export class SearchInputComponent implements OnInit {
 
   private areResultsVisible = false;
 
-  constructor(private booksApiService: BooksApiService) {}
+  constructor(
+    private booksApiService: BooksApiService,
+    @Inject(DOCUMENT) private document: Document
+  ) {}
 
   ngOnInit(): void {}
 
@@ -48,7 +54,8 @@ export class SearchInputComponent implements OnInit {
   }
 
   select(value: Result) {
-    console.log('selected ' + value.url);
+    const window = this.document.defaultView;
+    if (window) location.href = value.url;
   }
 
   submit() {

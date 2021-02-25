@@ -12,8 +12,8 @@ export interface BooksVolumeSearchRepsonseBook {
     authors: string[];
     publisher: string;
     publishedDate: string;
-    description: string;
-    imageLinks: {
+    description?: string;
+    imageLinks?: {
       smallThumbnail: string;
       thumbnail: string;
     };
@@ -34,7 +34,7 @@ export interface BooksVolumeSearchRepsonseBook {
     };
     accessViewStatus: string;
   };
-  searchInfo: {
+  searchInfo?: {
     textSnippet: string;
   };
 }

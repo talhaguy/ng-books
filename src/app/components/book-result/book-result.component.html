@@ -1,1 +1,21 @@
-<p>book-result works!</p>
+<p-card *ngIf="book" [header]="book.title" class="book-result">
+  <ng-template pTemplate="header"> </ng-template>
+  <div class="book-result__content">
+    <img
+      *ngIf="book.thumbnail"
+      [src]="book.thumbnail"
+      class="book-result__img"
+    />
+    <div class="book-result__details">
+      <ul class="book-result__authors">
+        <li class="book-result__author" *ngFor="let author of book.authors">
+          {{ author }}
+        </li>
+      </ul>
+      <p *ngIf="book.shortDescription" [innerHTML]="book.shortDescription"></p>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <a [href]="book.link" class="book-result__link" pButton label="View"></a>
+  </ng-template>
+</p-card>

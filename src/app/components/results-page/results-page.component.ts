@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { map, take, tap } from 'rxjs/operators';
+import { BookResult } from 'src/app/models/BookResult';
+import { BookDataConverterService } from 'src/app/services/book-data-converter.service';
 import { BooksApiService } from 'src/app/services/books-api.service';
 
 @Component({
@@ -7,12 +11,27 @@ import { BooksApiService } from 'src/app/services/books-api.service';
   styleUrls: ['./results-page.component.scss'],
 })
 export class ResultsPageComponent implements OnInit {
-  constructor(private booksApiService: BooksApiService) {}
+  searchResults: BookResult[] = [];
+
+  constructor(
+    private booksApiService: BooksApiService,
+    private bookDataConverterService: BookDataConverterService
+  ) {}
 
   ngOnInit(): void {}
 
   onSearch() {
-    console.log('search');
-    this.booksApiService.getLastSearchResponse().subscribe(console.log);
+    this.booksApiService
+      .getLastSearchResponse()
+      .pipe(
+        take(1),
+        map((data) =>
+          this.bookDataConverterService.convertVolumesSearchToBookResult(data)
+        ),
+        tap((data) => {
+          this.searchResults = data;
+        })
+      )
+      .subscribe(console.log);
   }
 }

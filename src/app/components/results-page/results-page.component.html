@@ -1,12 +1,17 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-12">
       <h1>Book Finder</h1>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-12">
       <app-search-input (onSearch)="onSearch()"></app-search-input>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-sm-12" *ngFor="let searchResult of searchResults">
+      <app-book-result [book]="searchResult"></app-book-result>
     </div>
   </div>
 </div>

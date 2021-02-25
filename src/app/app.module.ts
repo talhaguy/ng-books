@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 
 import { AppComponent } from './app.component';
 import { ResultsPageComponent } from './components/results-page/results-page.component';
@@ -28,6 +29,7 @@ import { BooksApiKeyInterceptor } from './interceptors/books-api-key.interceptor
     HttpClientModule,
     AutoCompleteModule,
     ButtonModule,
+    CardModule,
   ],
   providers: [
     {
