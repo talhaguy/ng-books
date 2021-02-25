@@ -2,8 +2,11 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { GOOGLE_BOOKS_API_KEY } from './environment.secrets';
+
 export const environment = {
-  production: false
+  production: false,
+  googleBooksApiKey: GOOGLE_BOOKS_API_KEY,
 };
 
 /*
