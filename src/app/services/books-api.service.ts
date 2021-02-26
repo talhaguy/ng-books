@@ -1,7 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Message, MessageService } from 'primeng/api';
 import { BehaviorSubject, of } from 'rxjs';
-import { take, takeLast, takeUntil, takeWhile, tap } from 'rxjs/operators';
+import {
+  catchError,
+  take,
+  takeLast,
+  takeUntil,
+  takeWhile,
+  tap,
+} from 'rxjs/operators';
 import { ApiUrl } from '../constants/ApiUrl';
 import { BooksVolumeSearchRepsonse } from '../models/BooksVolumeSearchResponse';
 
@@ -14,7 +22,10 @@ export class BooksApiService {
   );
   private lastSearchTerm = new BehaviorSubject<string>('');
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private messageService: MessageService
+  ) {}
 
   search(term: string, startIndex: number = 0) {
     return this.http
@@ -29,6 +40,10 @@ export class BooksApiService {
         tap((data) => {
           this.lastSearchResponse.next(data);
           this.lastSearchTerm.next(term);
+        }),
+        catchError((err) => {
+          this.handleError(err);
+          throw err;
         })
       );
   }
@@ -46,5 +61,13 @@ export class BooksApiService {
 
   getLastSearchTerm() {
     return this.lastSearchTerm.value;
+  }
+
+  handleError(err: any) {
+    const msg: Message = {
+      severity: 'error',
+      detail: err.message,
+    };
+    this.messageService.add(msg);
   }
 }

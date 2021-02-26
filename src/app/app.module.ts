@@ -8,6 +8,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { PaginatorModule } from 'primeng/paginator';
+import { ToastModule } from 'primeng/toast';
 
 import { AppComponent } from './app.component';
 import { ResultsPageComponent } from './components/results-page/results-page.component';
@@ -15,6 +16,7 @@ import { SearchInputComponent } from './components/search-input/search-input.com
 import { BookResultComponent } from './components/book-result/book-result.component';
 import { BooksApiKeyInterceptor } from './interceptors/books-api-key.interceptor';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     ButtonModule,
     CardModule,
     PaginatorModule,
+    ToastModule,
   ],
   providers: [
     {
@@ -41,6 +44,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
       useClass: BooksApiKeyInterceptor,
       multi: true,
     },
+    MessageService,
   ],
   bootstrap: [AppComponent],
 })

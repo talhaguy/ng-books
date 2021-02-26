@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { take, tap } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { BooksVolumeSearchRepsonse } from 'src/app/models/BooksVolumeSearchResponse';
 import { BooksApiService } from 'src/app/services/books-api.service';
 

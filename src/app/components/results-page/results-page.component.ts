@@ -38,7 +38,7 @@ export class ResultsPageComponent implements OnInit {
           this.searchResults = data;
         })
       )
-      .subscribe(console.log);
+      .subscribe();
   }
 
   onNewPage(data: BooksVolumeSearchRepsonse) {
