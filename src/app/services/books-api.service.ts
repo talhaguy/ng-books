@@ -12,20 +12,23 @@ export class BooksApiService {
   private lastSearchResponse = new BehaviorSubject<BooksVolumeSearchRepsonse | null>(
     null
   );
+  private lastSearchTerm = new BehaviorSubject<string>('');
 
   constructor(private http: HttpClient) {}
 
-  search(term: string) {
+  search(term: string, startIndex: number = 0) {
     return this.http
       .get<BooksVolumeSearchRepsonse>(ApiUrl.Volume, {
         params: {
           q: term,
           projection: 'lite',
+          startIndex: startIndex + '',
         },
       })
       .pipe(
         tap((data) => {
           this.lastSearchResponse.next(data);
+          this.lastSearchTerm.next(term);
         })
       );
   }
@@ -39,5 +42,9 @@ export class BooksApiService {
         takeLast(1)
       );
     }
+  }
+
+  getLastSearchTerm() {
+    return this.lastSearchTerm.value;
   }
 }

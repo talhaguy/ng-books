@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { PaginatorModule } from 'primeng/paginator';
 
 import { AppComponent } from './app.component';
 import { ResultsPageComponent } from './components/results-page/results-page.component';
 import { SearchInputComponent } from './components/search-input/search-input.component';
 import { BookResultComponent } from './components/book-result/book-result.component';
 import { BooksApiKeyInterceptor } from './interceptors/books-api-key.interceptor';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { BooksApiKeyInterceptor } from './interceptors/books-api-key.interceptor
     ResultsPageComponent,
     SearchInputComponent,
     BookResultComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +33,7 @@ import { BooksApiKeyInterceptor } from './interceptors/books-api-key.interceptor
     AutoCompleteModule,
     ButtonModule,
     CardModule,
+    PaginatorModule,
   ],
   providers: [
     {

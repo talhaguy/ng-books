@@ -14,4 +14,12 @@
       <app-book-result [book]="searchResult"></app-book-result>
     </div>
   </div>
+  <div class="row" *ngIf="totalResults > 0">
+    <div class="col-12">
+      <app-pagination
+        [totalResults]="totalResults"
+        (onNewPage)="onNewPage($event)"
+      ></app-pagination>
+    </div>
+  </div>
 </div>

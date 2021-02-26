@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import { map, take, tap } from 'rxjs/operators';
 import { BookResult } from 'src/app/models/BookResult';
+import { BooksVolumeSearchRepsonse } from 'src/app/models/BooksVolumeSearchResponse';
 import { BookDataConverterService } from 'src/app/services/book-data-converter.service';
 import { BooksApiService } from 'src/app/services/books-api.service';
 
@@ -11,11 +12,13 @@ import { BooksApiService } from 'src/app/services/books-api.service';
   styleUrls: ['./results-page.component.scss'],
 })
 export class ResultsPageComponent implements OnInit {
+  totalResults = 0;
   searchResults: BookResult[] = [];
 
   constructor(
     private booksApiService: BooksApiService,
-    private bookDataConverterService: BookDataConverterService
+    private bookDataConverterService: BookDataConverterService,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnInit(): void {}
@@ -25,6 +28,9 @@ export class ResultsPageComponent implements OnInit {
       .getLastSearchResponse()
       .pipe(
         take(1),
+        tap((data) => {
+          this.totalResults = data ? data.totalItems : 0;
+        }),
         map((data) =>
           this.bookDataConverterService.convertVolumesSearchToBookResult(data)
         ),
@@ -33,5 +39,13 @@ export class ResultsPageComponent implements OnInit {
         })
       )
       .subscribe(console.log);
+  }
+
+  onNewPage(data: BooksVolumeSearchRepsonse) {
+    this.searchResults = this.bookDataConverterService.convertVolumesSearchToBookResult(
+      data
+    );
+
+    this.document.defaultView?.scrollTo(0, 0);
   }
 }
